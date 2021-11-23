@@ -1,0 +1,73 @@
+/v2/Bus/Route/City/{City}/{RouteName}
+→取得指定縣市符合查詢條件的公車路線資料(不含各站)
+
+RouteUID (String): 路線唯一識別代碼，規則為 {業管機關簡碼} + {RouteID}，其中 {業管機關簡碼} 可於Authority API中的AuthorityCode欄位查詢 ,
+RouteID (String): 地區既用中之路線代碼(為原資料內碼) ,
+SubRoutes (Array[BusSubRoute], optional): 附屬路線資料(如果原始資料並無提供附屬路線ID，而本平台基於跨來源資料之一致性，會以SubRouteID=RouteID產製一份相對應的附屬路線資料(若有去返程，則會有兩筆)) ,
+BusRouteType (Int32): 公車路線類別 : [11:'市區公車',12:'公路客運',13:'國道客運',14:'接駁車'] ,
+RouteName (NameType): 路線名稱 ,
+DepartureStopNameZh (String, optional): 起站中文名稱 ,
+DepartureStopNameEn (String, optional): 起站英文名稱 ,
+DestinationStopNameZh (String, optional): 終點站中文名稱 ,
+DestinationStopNameEn (String, optional): 終點站英文名稱 ,
+BusSubRoute {
+    SubRouteUID (String): 附屬路線唯一識別代碼，規則為 {業管機關簡碼} + {SubRouteID}，其中 {業管機關簡碼} 可於Authority API中的AuthorityCode欄位查詢 ,
+    SubRouteID (String): 地區既用中之附屬路線代碼(為原資料內碼) ,
+    OperatorIDs (Array[string]): 營運業者代碼 ,
+    SubRouteName (NameType): 附屬路線名稱 ,
+    Headsign (String, optional): 車頭描述 ,
+    HeadsignEn (String, optional): 車頭英文描述 ,
+    Direction (Int32): 去返程 : [0:'去程',1:'返程',2:'迴圈',255:'未知'] ,
+    FirstBusTime (String, optional): 平日第一班發車時間 ,
+    LastBusTime (String, optional): 平日返程第一班發車時間 ,
+    HolidayFirstBusTime (String, optional): 假日去程第一班發車時間 ,
+    HolidayLastBusTime (String, optional): 假日返程第一班發車時間
+}
+NameType {
+    Zh_tw (String, optional): 中文繁體名稱 ,
+    En (String, optional): 英文名稱
+}
+
+
+
+
+/v2/Bus/StopOfRoute/City/{City}/{RouteName}
+→取得指定公車路線所有站點
+
+RouteUID (String): 路線唯一識別代碼，規則為 {業管機關簡碼} + {RouteID}，其中 {業管機關簡碼} 可於Authority API中的AuthorityCode欄位查詢 ,
+RouteID (String): 地區既用中之路線代碼(為原資料內碼) ,
+RouteName (NameType): 路線名稱 ,
+Direction (Int32, optional): 去返程 : [0:'去程',1:'返程',2:'迴圈',255:'未知'] ,
+Stops (Array[Stop]): 所有經過站牌 ,
+Stop {
+    StopUID (String): 站牌唯一識別代碼，規則為 {業管機關簡碼} + {StopID}，其中 {業管機關簡碼} 可於Authority API中的AuthorityCode欄位查詢 ,
+    StopID (String): 地區既用中之站牌代碼(為原資料內碼) ,
+    StopName (NameType): 站牌名稱 ,
+    StopBoarding (Int32, optional): 上下車站別 : [-1:'可下車',0:'可上下車',1:'可上車'] ,
+    StopSequence (Int32): 路線經過站牌之順序 ,
+    StopPosition (PointType): 站牌位置 ,
+    StationID (String, optional): 站牌所屬的站位ID ,
+    StationGroupID (String): 站牌所屬的組站位ID ,
+    LocationCityCode (String, optional): 站牌位置縣市之代碼(國際ISO 3166-2 三碼城市代碼)[若為公路/國道客運路線則為空值]
+}
+
+
+
+/v2/Bus/EstimatedTimeOfArrival/Streaming/City/{City}/{RouteName}
+→取得指定公車路線即時到站資訊
+
+PlateNumb (String, optional): 車牌號碼 [値為値為-1時，表示目前該站位無車輛行駛] ,
+StopUID (String, optional): 站牌唯一識別代碼，規則為 {業管機關簡碼} + {StopID}，其中 {業管機關簡碼} 可於Authority API中的AuthorityCode欄位查詢 ,
+StopID (String, optional): 地區既用中之站牌代碼(為原資料內碼) ,
+StopName (NameType, optional): 站牌名 ,
+RouteUID (String, optional): 路線唯一識別代碼，規則為 {業管機關代碼} + {RouteID}，其中 {業管機關代碼} 可於Authority API中的AuthorityCode欄位查詢 ,
+RouteID (String, optional): 地區既用中之路線代碼(為原資料內碼) ,
+RouteName (NameType, optional): 路線名稱 ,
+Direction (Int32): 去返程(該方向指的是此車牌車輛目前所在路線的去返程方向，非指站站牌所在路線的去返程方向，使用時請加值業者多加注意) : [0:'去程',1:'返程',2:'迴圈',255:'未知'] ,
+EstimateTime (integer, optional): 到站時間預估(秒) [當StopStatus値為2~4或PlateNumb値為-1時，EstimateTime値為null; 當StopStatus値為1時， EstimateTime値多數為null，僅部分路線因有固定發車時間，故EstimateTime有値; 當StopStatus値為0時，EstimateTime有値。] ,
+CurrentStop (String, optional): 車輛目前所在站牌代碼 ,
+DestinationStop (String, optional): 車輛目的站牌代碼 ,
+StopSequence (integer, optional): 路線經過站牌之順序 ,
+StopStatus (Int32, optional): 車輛狀態備註 : [0:'正常',1:'尚未發車',2:'交管不停靠',3:'末班車已過',4:'今日未營運'] ,
+NextBusTime (string, optional): 下一班公車到達時間(ISO8601格式:yyyy-MM-ddTHH:mm:sszzz) ,
+IsLastBus (boolean, optional): 是否為末班車 ,
