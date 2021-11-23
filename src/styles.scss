@@ -1,1 +1,209 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: arial,"Microsoft JhengHei","微軟正黑體",sans-serif !important;
+  margin: 0;
+  padding: 0;
+}
+
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+button{
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/*--header--*/
+.header{
+  background-color: #fff;
+}
+
+.header_m_img{
+  display: none;
+}
+
+input{
+  border: none;
+  outline: none;
+}
+
+.header{
+  padding: 0.8% 1.5%;
+  overflow: hidden;
+}
+
+.logo{
+  color: #466785;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  width: 40%;
+  float: left;
+}
+
+.logo > img{
+  margin-right: 0.5%;
+}
+
+/*--search--*/
+.search{
+  border: 3px solid #466785;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 50%;
+  overflow: hidden;
+  display: flex;
+  float: right;
+  align-items: center;
+  position: relative;
+  justify-content: flex-start;
+  margin-top: 1.5%;
+}
+
+.search svg{
+  color: #466785;
+  margin-left: 1.5%;
+}
+
+.search input{
+  width: 73%;
+  padding: 1.5%;
+  font-size: 1.5rem;
+  color: #466785;
+}
+
+::placeholder {
+  color: #466785;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-left: 0.8rem;
+}
+
+.search button{
+  background: #466785;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 20%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+/*--main--*/
+#main{
+  background-color: #fff;
+}
+
+.main_icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 2% 0;
+}
+
+.main_icons p{
+  font-size: 2rem;
+  color: #466785;
+  font-weight: bold;
+}
+
+.main_icons button{
+  background-color: #E7F7FD;
+  border-radius: 10px;
+  padding: 1% 3%;
+  text-align: center;
+  margin-right: 1%;
+}
+
+.main_icons button:last-child{
+  margin-right: 0;
+}
+
+/*--footer--*/
+.footer{
+  background-color: #000;
+  text-align: center;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 3% 0;
+}
+
+@media screen and (max-width:910px) {
+  .logo{
+    font-size: 1rem;
+    width: 30%;
+  }
+
+  .logo > img{
+    width: 30%;
+  }
+
+  .search{
+    width: 70%;
+  }
+}
+
+@media screen and (max-width:660px) {
+  .header_m_img{
+    display: block;
+  }
+
+  .logo{
+    font-size: 2rem;
+    width: 90%;
+    margin: 5% auto 0;
+    float: inherit;
+    justify-content: center;
+  }
+
+  .search{
+    width: 90%;
+    margin: 5% auto;
+    float: inherit;
+  }
+
+  ::placeholder {
+    font-size: 1rem;
+  }
+
+  .search input{
+    width: 65%;
+  }
+
+  #main > span > img{
+    display: none;
+  }
+
+  .main_icons{
+    flex-direction: column;
+  }
+
+  .main_icons button{
+    width: 90%;
+    margin: 0 auto 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main_icons button > img{
+    width: 18%;
+  }
+
+  .main_icons button > p{
+    margin-left: 1%;
+  }
+
+  .main_icons button:last-child{
+    margin-right: auto;
+  }
+}
+
