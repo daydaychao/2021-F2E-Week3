@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatTabsModule } from '@angular/material/tabs'
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
