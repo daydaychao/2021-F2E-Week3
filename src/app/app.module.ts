@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'; // Angular CLI environment
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -10,7 +12,10 @@ import { RouteListComponent } from './pages/route-list/route-list.component';
 import { RouteDetailComponent } from './pages/route-detail/route-detail.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { FooterComponent } from './components/footer/footer.component';
-
+import { StoreModule } from '@ngrx/store';
+import { SelectedCityReducer, SelectedRouteUIDReducer, RouteListReducer, RouteDetailInfoReducer, RouteEstimatedInfoReducer } from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffect } from './store/app.effect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +29,15 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot({ city: SelectedCityReducer, routeUID: SelectedRouteUIDReducer, routeList: RouteListReducer, routeDetailInfo: RouteDetailInfoReducer, routeEstimatedInfo: RouteEstimatedInfoReducer }),
+    EffectsModule.forRoot([AppEffect]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

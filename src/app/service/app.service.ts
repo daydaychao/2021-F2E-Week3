@@ -13,23 +13,23 @@ export class AppService {
 
   constructor(private $http: HttpClient) { }
 
-  public getCityRoute(city:string, keyword:string){
+  public getCityRouteData(city:string, keyword:string){
     let url = `${this.TDX_API_DOMAIN}${this.GET_CITY_ROUTE_API}/${city}/${keyword}`;
     return this.$http.get(url);
   }
 
-  public getRouteStop(city:string, routeUID:string){
-    let url = `${this.TDX_API_DOMAIN}${this.GET_STOP_OF_ROUTE_API}/${city}?filter=RouteUID%20eq%20'${routeUID}'`;
+  public getRouteStopData(city:string, routeUID:string){
+    let url = `${this.TDX_API_DOMAIN}${this.GET_STOP_OF_ROUTE_API}/${city}?$filter=RouteUID eq '${routeUID}'`;
     return this.$http.get(url);
   }
 
-  public getRouteEstimatedTimeStream(city:string, routeUID:string){
-    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_STREAM_API}/${city}?filter=RouteUID%20eq%20'${routeUID}'`;
+  public getRouteEstimatedTimeStreamData(city:string, routeUID:string){
+    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_STREAM_API}/${city}?$filter=RouteUID eq '${routeUID}'&$format=JSON`;
     return this.$http.get(url);
   }
 
-  public getRouteEstimatedTime(city:string, routeUID:string){
-    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_API}/${city}?filter=RouteUID%20eq%20'${routeUID}'`;
+  public getRouteEstimatedTimeData(city:string, routeUID:string){
+    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_API}/${city}/?$filter=RouteUID eq '${routeUID}'&$format=JSON`;
     return this.$http.get(url);
   }
 }
