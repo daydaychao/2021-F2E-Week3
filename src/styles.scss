@@ -1,45 +1,81 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$app-primary: mat.define-palette(mat.$indigo-palette);
+$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$app-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $app-primary,
+      accent: $app-accent,
+      warn: $app-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($app-theme);
+
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
   box-sizing: border-box;
 }
 
-body{
-  font-family: arial,"Microsoft JhengHei","微軟正黑體",sans-serif !important;
+body {
+  font-family: arial, "Microsoft JhengHei", "微軟正黑體", sans-serif !important;
   margin: 0;
   padding: 0;
 }
 
-img{
+img {
   max-width: 100%;
   max-height: 100%;
 }
 
-button{
+button {
   border: none;
   outline: none;
   cursor: pointer;
 }
 
 /*--header--*/
-.header{
+.header {
   background-color: #fff;
 }
 
-.header_m_img{
+.header_m_img {
   display: none;
 }
 
-input{
+input {
   border: none;
   outline: none;
 }
 
-.header{
+.header {
   padding: 0.8% 1.5%;
   overflow: hidden;
 }
 
-.logo{
+.logo {
   color: #466785;
   font-size: 2rem;
   font-weight: bold;
@@ -49,12 +85,12 @@ input{
   float: left;
 }
 
-.logo > img{
+.logo > img {
   margin-right: 0.5%;
 }
 
 /*--search--*/
-.search{
+.search {
   border: 3px solid #466785;
   border-radius: 10px;
   max-width: 700px;
@@ -68,12 +104,12 @@ input{
   margin-top: 1.5%;
 }
 
-.search svg{
+.search svg {
   color: #466785;
   margin-left: 1.5%;
 }
 
-.search input{
+.search input {
   width: 73%;
   padding: 1.5%;
   font-size: 1.5rem;
@@ -87,7 +123,7 @@ input{
   padding-left: 0.8rem;
 }
 
-.search button{
+.search button {
   background: #466785;
   font-weight: bold;
   color: #fff;
@@ -98,37 +134,37 @@ input{
   right: 0;
 }
 /*--main--*/
-#main{
+#main {
   background-color: #fff;
 }
 
-.main_icons{
+.main_icons {
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 2% 0;
 }
 
-.main_icons p{
+.main_icons p {
   font-size: 2rem;
   color: #466785;
   font-weight: bold;
 }
 
-.main_icons button{
-  background-color: #E7F7FD;
+.main_icons button {
+  background-color: #e7f7fd;
   border-radius: 10px;
   padding: 1% 3%;
   text-align: center;
   margin-right: 1%;
 }
 
-.main_icons button:last-child{
+.main_icons button:last-child {
   margin-right: 0;
 }
 
 /*--footer--*/
-.footer{
+.footer {
   background-color: #000;
   text-align: center;
   color: #fff;
@@ -136,35 +172,35 @@ input{
   padding: 3% 0;
 }
 
-@media screen and (max-width:910px) {
-  .logo{
+@media screen and (max-width: 910px) {
+  .logo {
     font-size: 1rem;
     width: 30%;
   }
 
-  .logo > img{
+  .logo > img {
     width: 30%;
   }
 
-  .search{
+  .search {
     width: 70%;
   }
 }
 
-@media screen and (max-width:660px) {
-  .header_m_img{
+@media screen and (max-width: 660px) {
+  .header_m_img {
     display: block;
   }
 
-  .logo{
-    font-size: 2rem;
+  .logo {
+    font-size: 1.6rem;
     width: 90%;
     margin: 5% auto 0;
     float: inherit;
     justify-content: center;
   }
 
-  .search{
+  .search {
     width: 90%;
     margin: 5% auto;
     float: inherit;
@@ -174,19 +210,19 @@ input{
     font-size: 1rem;
   }
 
-  .search input{
+  .search input {
     width: 65%;
   }
 
-  #main > span > img{
+  #main > span > img {
     display: none;
   }
 
-  .main_icons{
+  .main_icons {
     flex-direction: column;
   }
 
-  .main_icons button{
+  .main_icons button {
     width: 90%;
     margin: 0 auto 5%;
     display: flex;
@@ -194,16 +230,50 @@ input{
     justify-content: center;
   }
 
-  .main_icons button > img{
+  .main_icons button > img {
     width: 18%;
   }
 
-  .main_icons button > p{
+  .main_icons button > p {
     margin-left: 1%;
   }
 
-  .main_icons button:last-child{
+  .main_icons button:last-child {
     margin-right: auto;
   }
 }
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*--table--*/
+
+.mat-table {
+  width: 100%;
+  box-shadow: none;
+  background: #f9f9f9;
+}
+
+.mat-header-cell {
+  color: #000;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mat-cell {
+  color: #000;
+}
+
+.mat-row .mat-cell {
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: #888;
+}
