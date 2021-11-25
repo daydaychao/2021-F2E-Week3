@@ -77,31 +77,43 @@ input {
 
 .logo {
   color: #466785;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   display: flex;
   align-items: center;
-  width: 40%;
+  width: 25%;
   float: left;
 }
 
 .logo > img {
   margin-right: 0.5%;
+  max-width: 60px;
+}
+
+/*--select--*/
+select{
+  padding: 0.8% 2%;
+  border: 2px solid #cbcbcb;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 0.2%;
+  color: #666;
+  float: right;
+  margin-left: 1%;
 }
 
 /*--search--*/
 .search {
   border: 3px solid #466785;
   border-radius: 10px;
-  max-width: 700px;
-  width: 50%;
+  width: 45%;
   overflow: hidden;
   display: flex;
   float: right;
   align-items: center;
   position: relative;
   justify-content: flex-start;
-  margin-top: 1.5%;
 }
 
 .search svg {
@@ -163,6 +175,69 @@ input {
   margin-right: 0;
 }
 
+/*---routeDetail----*/
+.mat-tab-list{
+  background: #CBCBCB;
+  border-radius: 10px 10px 0 0;
+}
+
+.mat-tab-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 3% 5% 1%;
+  border-top: 1px solid #ddd;
+}
+
+.mat-tab-label{
+  width: 50%;
+  opacity: 1 !important;
+  padding: 1% 0 !important;
+  height: inherit !important;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background-color: #466785;
+}
+
+.mat-ink-bar{
+  height: 100% !important;
+  z-index: 1;
+  border-radius: 10px 10px 0 0;
+}
+
+.mat-tab-label .mat-tab-label-content{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.mat-tab-label-active{
+  color: #fff;
+  z-index: 99;
+}
+
+.ng-star-inserted > label{
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 1.8%;
+  min-width: 90px;
+  display: inline-block;
+  text-align: center;
+  color: #000;
+}
+
+.car_close{
+  background-color: #DD8A8A;
+}
+
+.car_nodeparture{
+  background-color: #8ADDCE;
+}
+
+.car_normal{
+  background-color: #CBCBCB;
+}
+
 /*--footer--*/
 .footer {
   background-color: #000;
@@ -172,32 +247,21 @@ input {
   padding: 3% 0;
 }
 
-@media screen and (max-width: 910px) {
-  .logo {
-    font-size: 1rem;
-    width: 30%;
-  }
-
-  .logo > img {
-    width: 30%;
-  }
-
-  .search {
-    width: 70%;
-  }
-}
-
-@media screen and (max-width: 660px) {
-  .header_m_img {
-    display: block;
-  }
-
+@media screen and (max-width: 1060px) {
   .logo {
     font-size: 1.6rem;
     width: 90%;
     margin: 5% auto 0;
     float: inherit;
     justify-content: center;
+  }
+
+  select{
+    width: 90%;
+    text-align: center;
+    margin: 3% auto 0;
+    float: inherit;
+    display: block;
   }
 
   .search {
@@ -212,6 +276,12 @@ input {
 
   .search input {
     width: 65%;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .header_m_img {
+    display: block;
   }
 
   #main > span > img {

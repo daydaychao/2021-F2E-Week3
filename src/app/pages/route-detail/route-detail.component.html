@@ -24,11 +24,11 @@
           <th mat-header-cell *matHeaderCellDef>預估到站</th>
           <td mat-cell *matCellDef="let element">
             <div *ngIf="!element.Estimates" else esTime>
-              <label *ngIf="element.StopStatus == 0">正常</label>
-              <label *ngIf="element.StopStatus == 1">尚未發車</label>
-              <label *ngIf="element.StopStatus == 2">交管不停靠</label>
-              <label *ngIf="element.StopStatus == 3">末班車已過</label>
-              <label *ngIf="element.StopStatus == 4">今日未營運</label>
+              <label class="car_normal" *ngIf="element.StopStatus == 0">正常</label>
+              <label class="car_nodeparture" *ngIf="element.StopStatus == 1">尚未發車</label>
+              <label class="car_close" *ngIf="element.StopStatus == 2">交管不停靠</label>
+              <label class="car_close" *ngIf="element.StopStatus == 3">末班車已過</label>
+              <label class="car_close" *ngIf="element.StopStatus == 4">今日未營運</label>
             </div>
             <ng-template #esTime>
               <!-- FIXME 要注意高雄有沒有即時時間出現 -->
@@ -68,11 +68,11 @@
           <th mat-header-cell *matHeaderCellDef>預估到站</th>
           <td mat-cell *matCellDef="let element">
             <div *ngIf="!element.Estimates" else esTime>
-              <label *ngIf="element.StopStatus == 0">正常</label>
-              <label *ngIf="element.StopStatus == 1">尚未發車</label>
-              <label *ngIf="element.StopStatus == 2">交管不停靠</label>
-              <label *ngIf="element.StopStatus == 3">末班車已過</label>
-              <label *ngIf="element.StopStatus == 4">今日未營運</label>
+              <label class="car_normal" *ngIf="element.StopStatus == 0">正常</label>
+              <label class="car_nodeparture" *ngIf="element.StopStatus == 1">尚未發車</label>
+              <label class="car_close" *ngIf="element.StopStatus == 2">交管不停靠</label>
+              <label class="car_close" *ngIf="element.StopStatus == 3">末班車已過</label>
+              <label class="car_close" *ngIf="element.StopStatus == 4">今日未營運</label>
             </div>
             <ng-template #esTime>
               <!-- FIXME 要注意高雄有沒有即時時間出現 -->
