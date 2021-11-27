@@ -27,7 +27,7 @@ export class AppEffect {
     getRouteDetailInfo$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ActionType.GET_ROUTE_DETAIL_INFO),
-            switchMap((action: AllAction) => this.appService.getRouteStopData(action.payload.city, action.payload.routeUID, action.payload.direction)
+            switchMap((action: AllAction) => this.appService.getRouteStopData(action.payload.city, action.payload.routeUID)
                 .pipe(
                     map(routeDetailInfo => ({ type: ActionType.GET_ROUTE_DETAIL_INFO_SUCCESS, payload: { routeDetailInfo: routeDetailInfo } })),
                     catchError((error) => of({ type: ActionType.GET_ROUTE_DETAIL_INFO_FAILED, payload: { error: error } }))
@@ -54,7 +54,7 @@ export class AppEffect {
                     case "HualienCounty":
                     case "TaitungCounty":
                     case "PenghuCounty":
-                        return this.appService.getRouteEstimatedTimeStreamData(action.payload.city, action.payload.routeUID, action.payload.direction)
+                        return this.appService.getRouteEstimatedTimeStreamData(action.payload.city, action.payload.routeUID)
                             .pipe(
                                 map(routeEstimatedInfo => ({ type: ActionType.GET_ROUTE_ESTIMATED_INFO_SUCCESS, payload: { routeEstimatedInfo: routeEstimatedInfo } })),
                                 catchError((error) => of({ type: ActionType.GET_ROUTE_ESTIMATED_INFO_FAILED, payload: { error: error } }))
@@ -69,7 +69,7 @@ export class AppEffect {
                     case "KinmenCounty":
                     case "LienchiangCounty":
                     default:
-                        return this.appService.getRouteEstimatedTimeData(action.payload.city, action.payload.routeUID, action.payload.direction)
+                        return this.appService.getRouteEstimatedTimeData(action.payload.city, action.payload.routeUID)
                             .pipe(
                                 map(routeEstimatedInfo => ({ type: ActionType.GET_ROUTE_ESTIMATED_INFO_SUCCESS, payload: { routeEstimatedInfo: routeEstimatedInfo } })),
                                 catchError((error) => of({ type: ActionType.GET_ROUTE_ESTIMATED_INFO_FAILED, payload: { error: error } }))

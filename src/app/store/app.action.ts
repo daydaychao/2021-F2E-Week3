@@ -40,7 +40,7 @@ export const GetRouteListFailedAction = createAction(
 
 export const GetRouteDetailInfoAction = createAction(
     ActionType.GET_ROUTE_DETAIL_INFO,
-    props<{ payload: { city: string, routeUID: string, direction: string } }>()
+    props<{ payload: { city: string, routeUID: string} }>()
 );
 
 export const GetRouteDetailInfoSuccessAction = createAction(
@@ -55,7 +55,7 @@ export const GetRouteDetailInfoFailedAction = createAction(
 
 export const GetRouteEstimatedInfoAction = createAction(
     ActionType.GET_ROUTE_ESTIMATED_INFO,
-    props<{ payload: { city: string, routeUID: string, direction: string } }>()
+    props<{ payload: { city: string, routeUID: string} }>()
 );
 
 export const GetRouteEstimatedInfoSuccessAction = createAction(

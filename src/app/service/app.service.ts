@@ -34,18 +34,18 @@ export class AppService {
     return this.$http.get(url, { headers: this.getAuthorizationHeader() });
   }
 
-  public getRouteStopData(city: string, routeUID: string, direction: string) {
-    let url = `${this.TDX_API_DOMAIN}${this.GET_STOP_OF_ROUTE_API}/${city}?$filter=RouteUID eq '${routeUID}' and Direction eq '${direction}'`;
+  public getRouteStopData(city: string, routeUID: string) {
+    let url = `${this.TDX_API_DOMAIN}${this.GET_STOP_OF_ROUTE_API}/${city}?$filter=RouteUID eq '${routeUID}'`;
     return this.$http.get(url, { headers: this.getAuthorizationHeader() });
   }
 
-  public getRouteEstimatedTimeStreamData(city: string, routeUID: string, direction: string) {
-    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_STREAM_API}/${city}?$filter=RouteUID eq '${routeUID}' and Direction eq '${direction}'&$orderby=StopSequence&$format=JSON`;
+  public getRouteEstimatedTimeStreamData(city: string, routeUID: string) {
+    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_STREAM_API}/${city}?$filter=RouteUID eq '${routeUID}'&$orderby=StopSequence&$format=JSON`;
     return this.$http.get(url, { headers: this.getAuthorizationHeader() });
   }
 
-  public getRouteEstimatedTimeData(city: string, routeUID: string, direction: string) {
-    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_API}/${city}/?$filter=RouteUID eq '${routeUID}' and Direction eq '${direction}'&$orderby=StopSequence&$format=JSON`;
+  public getRouteEstimatedTimeData(city: string, routeUID: string) {
+    let url = `${this.TDX_API_DOMAIN}${this.GET_ESTIMATED_TIME_OF_ARRIVAL_API}/${city}/?$filter=RouteUID eq '${routeUID}'&$orderby=StopSequence&$format=JSON`;
     return this.$http.get(url, { headers: this.getAuthorizationHeader() });
   }
 }

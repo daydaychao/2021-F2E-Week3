@@ -3,22 +3,30 @@ import { Component, OnInit } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { GetRouteDetailInfoAction, GetRouteDetailInfoFailedAction, GetRouteEstimatedInfoAction, RouteDetailInfo } from 'src/app/store/app.action'
+import { TimeInterval } from 'rxjs/internal/operators/timeInterval'
+import { GetRouteDetailInfoAction, GetRouteEstimatedInfoAction } from 'src/app/store/app.action'
 
 @Component({
   templateUrl: './route-detail.component.html',
   styleUrls: ['./route-detail.component.scss']
 })
 export class RouteDetailComponent {
-  dataSource = new MatTableDataSource<any>();
+  dataSourceDeaprture = new MatTableDataSource<any>();
+  dataSourceReturn = new MatTableDataSource<any>();
+
   displayedColumns: string[] = ['sort', 'name', 'stopName']
 
   private city$: Observable<string>;
   private routeUID$: Observable<string>;
-  private city: string = "NewTaipei";
-  private routeUID: string = "NWT16485";
-  public routeInfo$: Observable<Array<any>>;
+  // private city: string = "NewTaipei";
+  // private routeUID: string = "NWT10116";
+  // private city: string = "Tainan";
+  // private routeUID: string = "TNN10019";
+  private city: string = "Kaohsiung";
+  private routeUID: string = "KHH100";
+  public routeDetailInfo$: Observable<Array<any>>;
   public routeEstimatedInfo$: Observable<Array<any>>;
+  private _timer:any;
 
   constructor(private store: Store<{ city: string, routeUID: string, routeDetailInfo: any, routeEstimatedInfo: any }>) {
 
@@ -28,60 +36,120 @@ export class RouteDetailComponent {
     this.routeUID$ = store.select('routeUID');
     this.routeUID$.subscribe(resp => { if (resp) this.routeUID = resp; console.log("routeUID:", resp); });
 
-    this.routeInfo$ = this.store.select('routeDetailInfo');
-    this.routeInfo$.subscribe((resp: any) => {
-      // this.dataSource.data = resp[0]?.Stops;
-      // for(let i=0;i<resp[0]?.Stops;i++){
+    this.routeDetailInfo$ = this.store.select('routeDetailInfo');
+    this.routeDetailInfo$.subscribe((resp: any) => {
+      if (resp[0]) {
+        let result = [];
+        let stopList: Array<StopInfo> = resp[0]?.Stops;
+        for (let i = 0; i < stopList.length; i++) {
+          let stop = {
+            StopUID: stopList[i].StopUID,
+            StopID: stopList[i].StopID,
+            StopName: stopList[i].StopName,
+            StopSequence: stopList[i].StopSequence,
+            StopStatus: stopList[i].StopStatus
+          };
+          result.push(stop);
+        }
+        this.dataSourceDeaprture.data = result;
+      }
 
-      // }
+      if (resp[1]) {
+        let result = [];
+        let stopList: Array<StopInfo> = resp[1]?.Stops;
+        for (let i = 0; i < stopList.length; i++) {
+          let stop = {
+            StopUID: stopList[i].StopUID,
+            StopID: stopList[i].StopID,
+            StopName: stopList[i].StopName,
+            StopSequence: stopList[i].StopSequence,
+            StopStatus: stopList[i].StopStatus
+          };
+          result.push(stop);
+        }
+        this.dataSourceReturn.data = result;
+      }
     })
 
     this.routeEstimatedInfo$ = this.store.select('routeEstimatedInfo');
     this.routeEstimatedInfo$.subscribe((resp) => {
-      if(resp[0]){
-        let result = resp.map((obj)=>{
-          var rObj:any = {};
-          rObj[obj.StopUID] = obj;
-          return rObj;
-        })
-        let routeInfo:any = this.dataSource.data;
-        for(let i=0;i<routeInfo.length;i++){
-          routeInfo[i]['EstimatedInfo'] = result[routeInfo[i].StopUID];
-        } 
-        this.dataSource.data = routeInfo;
-        console.log("routeEstimatedInfo:", resp)
+      if (resp[0]) {
+        let estimatedInfoMap: any = {};
+        for (let j = 0; j < resp.length; j++) {
+          estimatedInfoMap[resp[j].StopUID] = resp[j];
+        }
+
+        let routeInfoList: any = this.dataSourceDeaprture.data;
+        for (let i = 0; i < routeInfoList.length; i++) {
+          routeInfoList[i]['EstimateTime'] = estimatedInfoMap[routeInfoList[i].StopUID]?.EstimateTime;
+          routeInfoList[i]['StopStatus'] = estimatedInfoMap[routeInfoList[i].StopUID]?.StopStatus;
+          routeInfoList[i]['NextBusTime'] = estimatedInfoMap[routeInfoList[i].StopUID]?.NextBusTime;
+        }
+
+        this.dataSourceDeaprture.data = routeInfoList;
+        console.log(this.dataSourceDeaprture.data)
+      }
+
+      if (resp[1]) {
+        let estimatedInfoMap: any = {};
+        for (let j = 0; j < resp.length; j++) {
+          estimatedInfoMap[resp[j].StopUID] = resp[j];
+        }
+
+        let routeInfoList: any = this.dataSourceReturn.data;
+        for (let i = 0; i < routeInfoList.length; i++) {
+          routeInfoList[i]['EstimateTime'] = estimatedInfoMap[routeInfoList[i].StopUID]?.EstimateTime;
+          routeInfoList[i]['StopStatus'] = estimatedInfoMap[routeInfoList[i].StopUID]?.StopStatus;
+          routeInfoList[i]['NextBusTime'] = estimatedInfoMap[routeInfoList[i].StopUID]?.NextBusTime;
+        }
+
+        this.dataSourceReturn.data = routeInfoList;
+        console.log(this.dataSourceReturn.data)
       }
 
     })
-
   }
 
   ngOnInit(): void {
-    this.getRouteAllStops();
-    this.getDeaprture();
+   this.getRouteDetailInfo();
   }
 
-  public getRouteAllStops() {
-    this.store.dispatch(GetRouteDetailInfoAction({ payload: { city: this.city, routeUID: this.routeUID, direction: '0' } }))
+  ngAfterContentInit(): void {
+    this.startSyncTimer();
   }
 
-  public getDeaprture() {
-    this.store.dispatch(GetRouteEstimatedInfoAction({ payload: { city: this.city, routeUID: this.routeUID, direction: '0' } }))
+  ngOnDestroy(): void {
+    this.stopSyncTimer();
   }
 
-  public getReturn() {
-    this.store.dispatch(GetRouteEstimatedInfoAction({ payload: { city: this.city, routeUID: this.routeUID, direction: '1' } }))
+  private getRouteDetailInfo(){
+    this.store.dispatch(GetRouteDetailInfoAction({ payload: { city: this.city, routeUID: this.routeUID } }))
+    this.store.dispatch(GetRouteEstimatedInfoAction({ payload: { city: this.city, routeUID: this.routeUID } }))
   }
 
-  public handleTabChange(tabInfo: any) {
-    switch (tabInfo.index) {
-      case 1:
-        this.getReturn();
-        break;
-      case 0:
-        this.getDeaprture()
-        break;
-      default:
-    }
+  private startSyncTimer() {
+    this._timer = setInterval(()=>{this.getRouteDetailInfo()},60000);
   }
+
+  private stopSyncTimer() {
+    clearInterval(this._timer);
+  }
+}
+
+interface StopInfo {
+  Direction: number | null;
+  EstimateTime: number | null;
+  RouteID: string | null;
+  RouteName: Locale | null;
+  RouteUID: string | null;
+  StopUID: string | null;
+  StopID: string | null;
+  StopName: Locale | null;
+  StopStatus: number | null;
+  StopSequence: number | null;
+}
+
+interface Locale {
+  Zh_tw: string;
+  En: string;
 }
