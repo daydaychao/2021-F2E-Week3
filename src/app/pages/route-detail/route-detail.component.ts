@@ -11,7 +11,7 @@ import { GetRouteDetailInfoAction, GetRouteEstimatedInfoAction } from 'src/app/s
   styleUrls: ['./route-detail.component.scss']
 })
 export class RouteDetailComponent {
-  dataSourceDeaprture = new MatTableDataSource<any>();
+  dataSourceDeparture = new MatTableDataSource<any>();
   dataSourceReturn = new MatTableDataSource<any>();
 
   displayedColumns: string[] = ['sort', 'name', 'stopName']
@@ -22,8 +22,10 @@ export class RouteDetailComponent {
   // private routeUID: string = "NWT10116";
   // private city: string = "Tainan";
   // private routeUID: string = "TNN10019";
-  private city: string = "Kaohsiung";
+  public city: string = "Kaohsiung";
   private routeUID: string = "KHH100";
+  public departureStop: string = "";
+  public returnStop: string = "";
   public routeDetailInfo$: Observable<Array<any>>;
   public routeEstimatedInfo$: Observable<Array<any>>;
   private _timer:any;
@@ -51,7 +53,8 @@ export class RouteDetailComponent {
           };
           result.push(stop);
         }
-        this.dataSourceDeaprture.data = result;
+        this.dataSourceDeparture.data = result;
+        this.departureStop = result[result.length-1].StopName?.Zh_tw||"";
       }
 
       if (resp[1]) {
@@ -68,6 +71,7 @@ export class RouteDetailComponent {
           result.push(stop);
         }
         this.dataSourceReturn.data = result;
+        this.returnStop = result[result.length-1].StopName?.Zh_tw||"";
       }
     })
 
@@ -79,15 +83,15 @@ export class RouteDetailComponent {
           estimatedInfoMap[resp[j].StopUID] = resp[j];
         }
 
-        let routeInfoList: any = this.dataSourceDeaprture.data;
+        let routeInfoList: any = this.dataSourceDeparture.data;
         for (let i = 0; i < routeInfoList.length; i++) {
           routeInfoList[i]['EstimateTime'] = estimatedInfoMap[routeInfoList[i].StopUID]?.EstimateTime;
           routeInfoList[i]['StopStatus'] = estimatedInfoMap[routeInfoList[i].StopUID]?.StopStatus;
           routeInfoList[i]['NextBusTime'] = estimatedInfoMap[routeInfoList[i].StopUID]?.NextBusTime;
         }
 
-        this.dataSourceDeaprture.data = routeInfoList;
-        console.log(this.dataSourceDeaprture.data)
+        this.dataSourceDeparture.data = routeInfoList;
+        console.log(this.dataSourceDeparture.data)
       }
 
       if (resp[1]) {
