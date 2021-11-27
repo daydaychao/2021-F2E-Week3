@@ -1,39 +1,59 @@
 <div class="container">
-  <mat-tab-group>
+  <mat-tab-group (selectedTabChange)="handleTabChange($event)">
     <mat-tab label="去的名稱">
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        class="mat-elevation-z8 w-full"
-      >
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
         <ng-container matColumnDef="sort">
           <th mat-header-cell *matHeaderCellDef>站序</th>
           <td mat-cell *matCellDef="let element; let i = index">
-            {{ i }}
+            {{ element?.StopSequence }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>站名</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.StopName.Zh_tw }}
+            {{ element?.StopName?.Zh_tw }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="stopName">
           <th mat-header-cell *matHeaderCellDef>預估到站</th>
           <td mat-cell *matCellDef="let element">
-            <div *ngIf="!element.Estimates" else esTime>
-              <label class="car_normal" *ngIf="element.StopStatus == 0">正常</label>
-              <label class="car_nodeparture" *ngIf="element.StopStatus == 1">尚未發車</label>
-              <label class="car_close" *ngIf="element.StopStatus == 2">交管不停靠</label>
-              <label class="car_close" *ngIf="element.StopStatus == 3">末班車已過</label>
-              <label class="car_close" *ngIf="element.StopStatus == 4">今日未營運</label>
+            <div *ngIf="element?.StopStatus == 0">
+              <label class="car_normal" *ngIf="element?.EstimateTime > 120">
+                {{element.EstimateTime/60 | number:'1.0-0' }} 分
+              </label>
+              <label class="car_comingSoon" *ngIf="element?.EstimateTime > 60 && element?.EstimateTime <= 120">
+                {{'即將進站'}}
+              </label>
+              <label class="car_arrival" *ngIf="element?.EstimateTime <= 60">
+                {{'進站中'}}
+              </label>
             </div>
-            <ng-template #esTime>
-              <!-- FIXME 要注意高雄有沒有即時時間出現 -->
-              {{ element.Estimates[0].EstimateTime }}
-            </ng-template>
+            <div *ngIf="element?.StopStatus != 0">
+              <label class="car_nodeparture" *ngIf="element?.StopStatus == 1 && element?.NextBusTime">
+                {{ element.NextBusTime|date:'HH:mm'}}
+              </label>
+              <label class="car_nodeparture" *ngIf="element?.StopStatus == 1 && element?.EstimateTime">
+                {{ element.EstimateTime/60 | number:'1.0-0' }} 分
+              </label>
+              <label class="car_close" *ngIf="element?.StopStatus == 2">交管不停靠</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 3">末班車已過</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 4">今日未營運</label>
+            </div>
+
+            <!-- <div *ngIf="!element?.Estimates" else esTime>
+              <label class="car_normal" *ngIf="element?.StopStatus == 0">正常</label>
+              <label class="car_nodeparture" *ngIf="element?.StopStatus == 1">尚未發車</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 2">交管不停靠</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 3">末班車已過</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 4">今日未營運</label>
+            </div> -->
+            <!-- <ng-template #esTime> -->
+            <!-- FIXME 要注意高雄有沒有即時時間出現 -->
+            <!-- {{ element.Estimates[0].EstimateTime }} -->
+            <!-- </ng-template> -->
+
           </td>
         </ng-container>
 
@@ -45,39 +65,54 @@
       </mat-paginator>
     </mat-tab>
     <mat-tab label="回的名稱">
-      <table
-        mat-table
-        [dataSource]="dataSource"
-        class="mat-elevation-z8 w-full"
-      >
+      <table mat-table [dataSource]="routeEstimatedInfo$" class="mat-elevation-z8 w-full">
         <ng-container matColumnDef="sort">
           <th mat-header-cell *matHeaderCellDef>站序</th>
           <td mat-cell *matCellDef="let element; let i = index">
-            {{ i }}
+            {{ element?.StopSequence }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>站名</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.StopName.Zh_tw }}
+            {{ element?.StopName.Zh_tw }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="stopName">
           <th mat-header-cell *matHeaderCellDef>預估到站</th>
           <td mat-cell *matCellDef="let element">
-            <div *ngIf="!element.Estimates" else esTime>
-              <label class="car_normal" *ngIf="element.StopStatus == 0">正常</label>
-              <label class="car_nodeparture" *ngIf="element.StopStatus == 1">尚未發車</label>
-              <label class="car_close" *ngIf="element.StopStatus == 2">交管不停靠</label>
-              <label class="car_close" *ngIf="element.StopStatus == 3">末班車已過</label>
-              <label class="car_close" *ngIf="element.StopStatus == 4">今日未營運</label>
+            <div *ngIf="element?.StopStatus == 0">
+              <label class="car_normal" *ngIf="element?.EstimateTime > 180">
+                {{element.EstimateTime/60 | number:'1.0-0' }} 分
+              </label>
+              <label class="car_comingSoon" *ngIf="element?.EstimateTime > 120 && element?.EstimateTime <= 180">
+                {{'即將進站'}}
+              </label>
+              <label class="car_arrival" *ngIf="element?.EstimateTime <= 120">
+                {{'進站中'}}
+              </label>
             </div>
-            <ng-template #esTime>
-              <!-- FIXME 要注意高雄有沒有即時時間出現 -->
-              {{ element.Estimates[0].EstimateTime }}
-            </ng-template>
+            <div *ngIf="element?.StopStatus != 0">
+              <label class="car_nodeparture" *ngIf="element?.StopStatus == 1">{{
+                element?.NextBusTime|date:'HH:mm'}}</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 2">交管不停靠</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 3">末班車已過</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 4">今日未營運</label>
+            </div>
+
+            <!-- <div *ngIf="!element?.Estimates" else esTime>
+              <label class="car_normal" *ngIf="element?.StopStatus == 0">正常</label>
+              <label class="car_nodeparture" *ngIf="element?.StopStatus == 1">尚未發車</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 2">交管不停靠</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 3">末班車已過</label>
+              <label class="car_close" *ngIf="element?.StopStatus == 4">今日未營運</label>
+            </div> -->
+            <!-- <ng-template #esTime> -->
+            <!-- FIXME 要注意高雄有沒有即時時間出現 -->
+            <!-- {{ element.Estimates[0].EstimateTime }} -->
+            <!-- </ng-template> -->
           </td>
         </ng-container>
 

@@ -216,9 +216,9 @@ select{
   z-index: 99;
 }
 
-.ng-star-inserted > label{
+label{
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 500;
   padding: 1.8%;
   min-width: 90px;
   display: inline-block;
@@ -226,8 +226,12 @@ select{
   color: #000;
 }
 
-.car_close{
+.car_arrival{
   background-color: #DD8A8A;
+}
+
+.car_comingSoon{
+  background-color: #a1c7e1;
 }
 
 .car_nodeparture{
