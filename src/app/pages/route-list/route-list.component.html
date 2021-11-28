@@ -1,14 +1,14 @@
 <div class="container">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
     <ng-container matColumnDef="operator">
-      <th mat-header-cell *matHeaderCellDef style="width: 120px">類型</th>
+      <th mat-header-cell *matHeaderCellDef style="width: 140px">類型</th>
       <td mat-cell *matCellDef="let element">
         {{ element?.Operators[0].OperatorName.Zh_tw }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>路線名稱</th>
+      <th mat-header-cell *matHeaderCellDef style="width: 120px">路線名稱</th>
       <td mat-cell *matCellDef="let element">
         {{ element?.SubRoutes[0].SubRouteName.Zh_tw }}
       </td>
@@ -20,9 +20,9 @@
         ><span class="nowrap">終點站</span>
       </th>
       <td mat-cell *matCellDef="let element">
-        <span> {{ element?.DepartureStopNameZh }}</span>
+        <span class="nowrap"> {{ element?.DepartureStopNameZh }}</span>
         <span> - </span>
-        <span>
+        <span class="nowrap">
           {{ element?.DestinationStopNameZh }}
         </span>
       </td>
@@ -36,5 +36,5 @@
     ></tr>
   </table>
 
-  <mat-paginator [hidePageSize]="true" showFirstLastButtons> </mat-paginator>
+  <!-- <mat-paginator [hidePageSize]="true" showFirstLastButtons> </mat-paginator> -->
 </div>

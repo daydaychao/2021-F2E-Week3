@@ -68,6 +68,4 @@ export class RouteListComponent implements OnInit {
     rowData.RouteId
   }
 
-
-
 }
