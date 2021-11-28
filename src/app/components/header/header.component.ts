@@ -58,19 +58,20 @@ export class HeaderComponent implements OnInit {
 
 
   onChangeSelectCity(e: any) {
-
-    if (this.router.url != './routeList') {
-      this.gotoRouteList()
-    }
     let selectCityValue = e.target.value
     this.city = selectCityValue
     this.store.dispatch(SelectedCityAction({ payload: { city: selectCityValue } }))
     this.store.dispatch(GetRouteListAction({ payload: { city: selectCityValue, keyword: this.keyword } }))
-    this.router.navigate(['/routeList']);
+    if (!this.router.url.includes('routeList')) {
+      this.gotoRouteList()
+    }
   }
 
   getDataByKeyword(e: any) {
     this.store.dispatch(GetRouteListAction({ payload: { city: this.city, keyword: e } }))
+    if (!this.router.url.includes('routeList')) {
+      this.gotoRouteList()
+    }
   }
 
   gotoHome() {
