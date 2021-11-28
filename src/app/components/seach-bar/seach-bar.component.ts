@@ -22,7 +22,14 @@ export class SeachBarComponent implements OnInit {
   onClickSearch() {
     this.getDataByKeywordEvent.emit(this.keyword)
   }
+  onKey(e: any) {
+    if (e.keyCode == 13) {
+      // if enter
+      let searchString = e.target.value
+      this.getDataByKeywordEvent.emit(this.keyword)
 
+    }
+  }
 
   ngOnInit(): void {
   }
