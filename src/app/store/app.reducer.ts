@@ -14,7 +14,7 @@ export const SelectedCityReducer = createReducer(
 
 export const SelectedRouteUIDReducer = createReducer(
   initialSelectedRouteUID,
-  on(AppAction.SelectedRouteAction, (state, action) => action.payload.city)
+  on(AppAction.SelectedRouteAction, (state, action) => action.payload.routeUID)
 );
 
 export const RouteListReducer = createReducer(
