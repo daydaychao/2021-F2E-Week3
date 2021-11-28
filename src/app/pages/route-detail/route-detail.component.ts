@@ -18,12 +18,8 @@ export class RouteDetailComponent {
 
   private city$: Observable<string>;
   private routeUID$: Observable<string>;
-  // private city: string = "NewTaipei";
-  // private routeUID: string = "NWT10116";
-  // private city: string = "Tainan";
-  // private routeUID: string = "TNN10019";
-  public city: string = "Kaohsiung";
-  private routeUID: string = "KHH100";
+  public city: string = "";
+  private routeUID: string = "";
   public departureStop: string = "";
   public returnStop: string = "";
   public routeDetailInfo$: Observable<Array<any>>;
@@ -108,7 +104,7 @@ export class RouteDetailComponent {
         }
 
         this.dataSourceReturn.data = routeInfoList;
-        console.log(this.dataSourceReturn.data)
+        // console.log(this.dataSourceReturn.data)
       }
 
     })

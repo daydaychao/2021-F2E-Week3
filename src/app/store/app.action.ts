@@ -20,7 +20,7 @@ export const SelectedCityAction = createAction(
 
 export const SelectedRouteAction = createAction(
     ActionType.SELECT_ROUTE,
-    props<{ payload: { city: string, routeUID: string } }>()
+    props<{ payload: { routeUID: string } }>()
 );
 
 export const GetRouteListAction = createAction(
