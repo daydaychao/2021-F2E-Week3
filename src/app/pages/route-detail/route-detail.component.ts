@@ -41,22 +41,24 @@ export class RouteDetailComponent {
 
     const combine = zip(this.routeDetailInfo$, this.routeEstimatedInfo$);
     combine.subscribe(resp => {
+      console.log(resp)
       if (resp[0] && resp[1]) {
         let routeStopInfo = resp[0];
         let routeEstimatedInfo = resp[1];
 
-        if (routeStopInfo[0] && routeStopInfo[1]) {
+        if (routeStopInfo[0]) {
           this.routeName = routeStopInfo[0].RouteName.Zh_tw;
 
           this.dataSourceDeparture.data = this._formatRouteStopInfo(routeStopInfo[0]);
           this.departureStop = this.dataSourceDeparture.data[this.dataSourceDeparture.data.length - 1].StopName?.Zh_tw || "";
           this.dataSourceDeparture.data = this._formatRouteEstimatedInfo(routeEstimatedInfo, this.dataSourceDeparture.data);
-          console.log("Departure:", this.dataSourceDeparture.data)
-
+          // console.log("Departure:", this.dataSourceDeparture.data)
+        }
+        if(routeStopInfo[1]){
           this.dataSourceReturn.data = this._formatRouteStopInfo(routeStopInfo[1]);
           this.returnStop = this.dataSourceReturn.data[this.dataSourceReturn.data.length - 1].StopName?.Zh_tw || "";
           this.dataSourceReturn.data = this._formatRouteEstimatedInfo(routeEstimatedInfo, this.dataSourceReturn.data);
-          console.log("Return:", this.dataSourceReturn.data)
+          // console.log("Return:", this.dataSourceReturn.data)
         }
       }
     })
