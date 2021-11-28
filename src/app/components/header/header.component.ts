@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
+import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { GetRouteDetailInfoAction, GetRouteListAction, RouteDetailInfo, RouteInfo, SelectedCityAction } from '../../store/app.action'
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
   private routeList: any[] = []; //取得的資料
 
 
-  constructor(private store: Store<{ city: string, routeList: Array<RouteInfo>, routeDetailInfo: RouteDetailInfo }>) {
+  constructor(private store: Store<{ city: string, routeList: Array<RouteInfo>, routeDetailInfo: RouteDetailInfo }>,private router: Router) {
     /* 透過觀察者 city$ 取得 store中的city，並保存至變數city */
     this.city$ = store.select('city')
     this.city$.subscribe(resp => { this.city = resp; console.log("[header]city:", resp) })
@@ -61,6 +62,7 @@ export class HeaderComponent implements OnInit {
     this.city = selectCityValue
     this.store.dispatch(SelectedCityAction({ payload: { city: selectCityValue } }))
     this.store.dispatch(GetRouteListAction({ payload: { city: selectCityValue, keyword: this.keyword } }))
+    this.router.navigate(['/routeList']);
   }
 
   getDataByKeyword(e: any) {

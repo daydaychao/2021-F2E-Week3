@@ -1,4 +1,5 @@
 <div class="container">
+  <h3>路線名稱：{{routeName}}</h3>
   <mat-tab-group>
     <mat-tab [label]="'往'+departureStop">
       <table mat-table [dataSource]="dataSourceDeparture" class="mat-elevation-z8 w-full">
@@ -36,6 +37,9 @@
               </label>
               <label class="car_nodeparture" *ngIf="element?.StopStatus == 1 && element?.EstimateTime">
                 {{ element.EstimateTime/60 | number:'1.0-0' }} 分
+              </label>
+              <label class="car_close" *ngIf="element?.StopStatus == 1 && !element?.EstimateTime && !element?.NextBusTime">
+                查無即時到站資訊
               </label>
               <label class="car_close" *ngIf="element?.StopStatus == 2">交管不停靠</label>
               <label class="car_close" *ngIf="element?.StopStatus == 3">末班車已過</label>
@@ -87,6 +91,9 @@
               </label>
               <label class="car_nodeparture" *ngIf="element?.StopStatus == 1 && element?.EstimateTime">
                 {{ element.EstimateTime/60 | number:'1.0-0' }} 分
+              </label>
+              <label class="car_close" *ngIf="element?.StopStatus == 1 && !element?.EstimateTime && !element?.NextBusTime">
+                查無即時到站資訊
               </label>
               <label class="car_close" *ngIf="element?.StopStatus == 2">交管不停靠</label>
               <label class="car_close" *ngIf="element?.StopStatus == 3">末班車已過</label>
