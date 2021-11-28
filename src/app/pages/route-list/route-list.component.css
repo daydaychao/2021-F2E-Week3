@@ -1,1 +1,1 @@
-.container{min-height:500px;padding:2.5% 5%}.demo-row-is-clicked{font-weight:bold}
+.container{height:calc(100vh - 170px);max-height:-webkit-fit-content;max-height:-moz-fit-content;max-height:fit-content;padding:2.5% 5%;overflow:auto}.demo-row-is-clicked{font-weight:bold}

@@ -1,6 +1,8 @@
 .container {
-  min-height: 500px;
+  height: calc(100vh - 170px);
+  max-height: fit-content;
   padding: 2.5% 5%;
+  overflow: auto;
 }
 
 .demo-row-is-clicked {

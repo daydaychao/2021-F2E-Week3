@@ -91,7 +91,7 @@ input {
 }
 
 /*--select--*/
-select{
+select {
   padding: 0.8% 2%;
   border: 2px solid #cbcbcb;
   border-radius: 10px;
@@ -176,8 +176,8 @@ select{
 }
 
 /*---routeDetail----*/
-.mat-tab-list{
-  background: #CBCBCB;
+.mat-tab-list {
+  background: #cbcbcb;
   border-radius: 10px 10px 0 0;
 }
 
@@ -189,34 +189,35 @@ select{
   border-top: 1px solid #ddd;
 }
 
-.mat-tab-label{
+.mat-tab-label {
   width: 50%;
   opacity: 1 !important;
   padding: 1% 0 !important;
   height: inherit !important;
 }
 
-.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
   background-color: #466785;
 }
 
-.mat-ink-bar{
+.mat-ink-bar {
   height: 100% !important;
   z-index: 1;
   border-radius: 10px 10px 0 0;
 }
 
-.mat-tab-label .mat-tab-label-content{
+.mat-tab-label .mat-tab-label-content {
   font-size: 1.2rem;
   font-weight: bold;
 }
 
-.mat-tab-label-active{
+.mat-tab-label-active {
   color: #fff;
   z-index: 99;
 }
 
-label{
+label {
   border-radius: 10px;
   font-weight: 500;
   padding: 1.8%;
@@ -226,20 +227,20 @@ label{
   color: #000;
 }
 
-.car_arrival{
-  background-color: #DD8A8A;
+.car_arrival {
+  background-color: #dd8a8a;
 }
 
-.car_comingSoon{
+.car_comingSoon {
   background-color: #a1c7e1;
 }
 
-.car_nodeparture{
-  background-color: #8ADDCE;
+.car_nodeparture {
+  background-color: #8addce;
 }
 
-.car_normal{
-  background-color: #CBCBCB;
+.car_normal {
+  background-color: #cbcbcb;
 }
 
 /*--footer--*/
@@ -260,7 +261,7 @@ label{
     justify-content: center;
   }
 
-  select{
+  select {
     width: 90%;
     text-align: center;
     margin: 3% auto 0;

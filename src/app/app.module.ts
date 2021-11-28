@@ -10,17 +10,17 @@ import { RouteListComponent } from './pages/route-list/route-list.component'
 import { RouteDetailComponent } from './pages/route-detail/route-detail.component'
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component'
 import { FooterComponent } from './components/footer/footer.component'
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table'// Mat start
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatTabsModule } from '@angular/material/tabs' // Mat End
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatTabsModule } from '@angular/material/tabs'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment'; // Angular CLI environment
-import { HttpClientModule } from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
-import { SelectedCityReducer, SelectedRouteUIDReducer, RouteListReducer, RouteDetailInfoReducer, RouteEstimatedInfoReducer } from './store/app.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEffect } from './store/app.effect';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { environment } from '../environments/environment' // Angular CLI environment
+import { HttpClientModule } from '@angular/common/http'
+import { StoreModule } from '@ngrx/store'
+import { SelectedCityReducer, SelectedRouteUIDReducer, RouteListReducer, RouteDetailInfoReducer, RouteEstimatedInfoReducer } from './store/app.reducer'
+import { EffectsModule } from '@ngrx/effects'
+import { AppEffect } from './store/app.effect'
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,9 +36,9 @@ import { AppEffect } from './store/app.effect';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTableModule,
+    MatTableModule, // Mat start
     MatPaginatorModule,
-    MatTabsModule,
+    MatTabsModule, // Mat End
     HttpClientModule,
     StoreModule.forRoot({ city: SelectedCityReducer, routeUID: SelectedRouteUIDReducer, routeList: RouteListReducer, routeDetailInfo: RouteDetailInfoReducer, routeEstimatedInfo: RouteEstimatedInfoReducer }),
     EffectsModule.forRoot([AppEffect]),
