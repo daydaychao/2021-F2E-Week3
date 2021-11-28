@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
+import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { Router } from '@angular/router'
 import { GetRouteDetailInfoAction, GetRouteListAction, RouteDetailInfo, RouteInfo, SelectedCityAction } from '../../store/app.action'
 
 
@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
     this.city = selectCityValue
     this.store.dispatch(SelectedCityAction({ payload: { city: selectCityValue } }))
     this.store.dispatch(GetRouteListAction({ payload: { city: selectCityValue, keyword: this.keyword } }))
-
+    this.router.navigate(['/routeList']);
   }
 
   getDataByKeyword(e: any) {
