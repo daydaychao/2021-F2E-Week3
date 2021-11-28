@@ -1,3 +1,11 @@
+# Deploy
+
+```
+npm i angular-cli-ghpages --save-dev
+ng build --prod --base-href https://divinechao.github.io/2021-F2E-Week3/
+npx angular-cli-ghpages --dir=dist/app
+```
+
 # App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
