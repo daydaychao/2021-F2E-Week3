@@ -50,7 +50,7 @@ export class RouteListComponent implements OnInit {
   public routeList$: Observable<Array<any>>
   private routeList: any[] = [];
 
-  constructor(private store: Store<{ city: string, routeUID: string, routeList: Array<RouteInfo> }>,private router: Router) {
+  constructor(private store: Store<{ city: string, routeUID: string, routeList: Array<RouteInfo> }>, private router: Router) {
     this.routeList$ = store.select('routeList')
     this.routeList$.subscribe(resp => { this.routeList = resp; console.log("[RouteList]:RouteList:", this.dataSource.data = resp) })
     console.log('%c [routeList]:this.dataSource.data', 'color: orange', this.dataSource.data)
@@ -66,8 +66,8 @@ export class RouteListComponent implements OnInit {
 
   gotoDetail(rowData: any) {
     console.log('[RouteList]-mat-table:e', rowData.RouteUID)
-    this.store.dispatch(SelectedRouteAction({ payload: { routeUID: rowData.RouteUID } }));
-    this.router.navigate(['/routeDetail']);
+    this.store.dispatch(SelectedRouteAction({ payload: { routeUID: rowData.RouteUID } }))
+    this.router.navigate(['/routeDetail'])
   }
 
 }
